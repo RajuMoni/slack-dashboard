@@ -4,8 +4,8 @@ import ClippedDrawer from "./Components/Sidebar"
 function App() {
   const options = [{ url: 'postmessage', text: "Post Message" },
   { url: 'events', text: "Events" },
-    { url: 'slash', text: "Slash" },
-    { url: 'reactionevents', text: "Calender" },
+  { url: 'slash', text: "Slash" },
+  { url: 'reactionevents', text: "Calender" },
   ];
   return (
     <>

@@ -50,6 +50,7 @@ export default function ClippedDrawer({ options }) {
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <Toolbar />
                 <Routes>
+                    <Route path="/" element={<PostMessage />} />
                     <Route path="/postmessage" element={<PostMessage />} />
                     <Route path="/slash" element={<Slash />} />
                     <Route path="/events" element={<Events />} />
