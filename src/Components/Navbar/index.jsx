@@ -24,7 +24,7 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor:"#001219",zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <AppBar position="fixed" sx={{ backgroundColor:"#26282a",zIndex: (theme) => theme.zIndex.drawer + 1 }}>
     <Container maxWidth="xl" >
       <Toolbar disableGutters sx={{display:'flex',justifyContent:'space-between'}}>
         <Typography
@@ -37,7 +37,7 @@ const ResponsiveAppBar = () => {
         <Box >
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar sx={{backgroundColor:"white", color:"black"}}alt="Raju" src="/static/images/avatar/2.jpg" />
             </IconButton>
           </Tooltip>
           <Menu

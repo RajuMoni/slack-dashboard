@@ -20,7 +20,12 @@ import { useStyles } from './style';
 const drawerWidth = 240;
 
 export default function ClippedDrawer({ options }) {
+    const [activeTab, setActiveTab] = React.useState(options[0].url);
+    console.log(activeTab);
     const styles = useStyles();
+    const onClickHandler = (url) => {
+        setActiveTab(url);
+    }
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -31,22 +36,23 @@ export default function ClippedDrawer({ options }) {
                     width: drawerWidth,
                     flexShrink: 0,
                     backgroundColor: "#005f73",
-                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: "#e8e8e4",},
+                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box', backgroundColor: "#e8e8e4", },
                 }}
             >
                 <Toolbar />
-                <Box sx={{ overflow: 'auto' }}>
+                <Box sx={{ overflow: 'auto', padding: "10px" }}>
                     <List>
                         {options.map(({ url, text }, index) => (
-                            <Link to={`/${url}`} className={styles.btn} key={index}>
-                                <ListItem button key={text} sx={{ color:"#005f73",p: "10px" }}>
-                                    <ListItemText primary={text} sx={{ textTransform: "uppercase" }} />
+
+                            <Link to={`/${url}`} className={`${styles.btn}`} key={index}>
+                                <ListItem onClick={() => onClickHandler(url)} className={`${activeTab === url ? styles.active : ""}`} button key={text} sx={{ color: "#005f73", p: "10px", borderRadius: "10px" }} >
+                                    <ListItemText primary={text} sx={{ textTransform: "capitalize" }} />
                                 </ListItem>
                             </Link>
                         ))}
                     </List>
                 </Box>
-            </Drawer>
+            </Drawer >
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <Toolbar />
                 <Routes>
@@ -57,6 +63,6 @@ export default function ClippedDrawer({ options }) {
                     <Route path="/reactionevents" element={<ReactionEvents />} />
                 </Routes>
             </Box>
-        </Box>
+        </Box >
     );
 }
