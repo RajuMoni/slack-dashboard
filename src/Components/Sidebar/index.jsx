@@ -10,7 +10,7 @@ import AppBar from "../Navbar"
 import PostMessage from "../../pages/PostMessage"
 import Events from "../../pages/Events"
 import Slash from "../../pages/Slash"
-import ReactionEvents from "../../pages/ReactionEvents"
+import Calender from "../../pages/Calender"
 import {
     Routes,
     Route,
@@ -20,8 +20,8 @@ import { useStyles } from './style';
 const drawerWidth = 240;
 
 export default function ClippedDrawer({ options }) {
-    const [activeTab, setActiveTab] = React.useState(options[0].url);
-    console.log(activeTab);
+    let cuurentPath = window.location.pathname.substring(1);
+    const [activeTab, setActiveTab] = React.useState(cuurentPath.length === 0 ? options[0].url : cuurentPath);
     const styles = useStyles();
     const onClickHandler = (url) => {
         setActiveTab(url);
@@ -40,13 +40,15 @@ export default function ClippedDrawer({ options }) {
                 }}
             >
                 <Toolbar />
-                <Box sx={{ overflow: 'auto', padding: "10px" }}>
+                <Box sx={{ overflow: 'auto', padding: "10px 10px 10px 0px" }}>
                     <List>
                         {options.map(({ url, text }, index) => (
-
                             <Link to={`/${url}`} className={`${styles.btn}`} key={index}>
-                                <ListItem onClick={() => onClickHandler(url)} className={`${activeTab === url ? styles.active : ""}`} button key={text} sx={{ color: "#005f73", p: "10px", borderRadius: "10px" }} >
-                                    <ListItemText primary={text} sx={{ textTransform: "capitalize" }} />
+                                <ListItem onClick={() => onClickHandler(url)} className={`${activeTab === url ? styles.active : ""}`} button key={text} sx={{
+                                    color: "#005f73", p: "10px", borderTopRightRadius: "90px !important",
+                                    borderBottomRightRadius: "90px !important",
+                                }} >
+                                    <ListItemText primary={text} style={{ textTransform: "capitalize", paddingLeft: "15px" }} />
                                 </ListItem>
                             </Link>
                         ))}
@@ -60,7 +62,7 @@ export default function ClippedDrawer({ options }) {
                     <Route path="/postmessage" element={<PostMessage />} />
                     <Route path="/slash" element={<Slash />} />
                     <Route path="/events" element={<Events />} />
-                    <Route path="/reactionevents" element={<ReactionEvents />} />
+                    <Route path="/calender" element={<Calender />} />
                 </Routes>
             </Box>
         </Box >

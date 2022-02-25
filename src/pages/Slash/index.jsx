@@ -14,9 +14,6 @@ export default function Index() {
       setloading(true);
       let response = await axios.get("https://Slack.raju-moni.repl.co/getslash");
       let data = await response.data;
-      data = data.map((e) => {
-        return JSON.parse(e);
-      })
       data = data.reverse();
       setSlashCommands((prev) => [...data]);
       setloading(false);
@@ -29,7 +26,7 @@ export default function Index() {
     events();
   }, []);
   return <div >
-    <h1>Slash Commands: <IconButton onClick={()=>events()}><RefreshIcon/></IconButton></h1>
+    <h3>Slash Commands: <IconButton onClick={()=>events()}><RefreshIcon/></IconButton></h3>
     <div className={style.container}>
       {loading && <CircularProgress className={style.loader} color="success" />}
       {!loading && <div>{slashCommand.map((el, index) => {

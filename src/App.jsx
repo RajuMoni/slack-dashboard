@@ -5,7 +5,7 @@ function App() {
   const options = [{ url: 'postmessage', text: "Post Message" },
   { url: 'events', text: "Events" },
   { url: 'slash', text: "Slash" },
-  { url: 'reactionevents', text: "Calender" },
+  { url: 'calender', text: "Calender" },
   ];
   return (
     <>
