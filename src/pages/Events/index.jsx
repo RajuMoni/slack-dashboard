@@ -30,33 +30,35 @@ export default function Index() {
     <div className={style.container}>
       {loading && <CircularProgress className={style.loader} color="success" />}
       {!loading && <div>{events.map((el, index) => {
-        return (<div key={index}>
-          <Card className={style.card}>
-            <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
-                {"Channel: "+ el.event.channel ??el.event.item.channel}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {"Event Type : " + el.event.type}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {"Team ID :  " + el.team_id}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {"User ID : " + el.event.user}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {"Username : " + el.user_name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {"Event Time : " + moment(el.event_time).format('LTS')}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {"Text : " + el.text}
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>);
+        return (
+          <div key={index}>
+            <Card className={style.card}>
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  {"Channel: " + el.event.channel ?? el.event.item.channel}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {"Event Type : " + el.event.type}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {"Team ID :  " + el.team_id}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {"User ID : " + el.event.user}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {"Username : " + el.user_name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {"Event Time : " + moment(el.event_time).format('LTS')}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {"Text : " + el.text}
+                </Typography>
+              </CardContent>
+            </Card>
+          </div>
+        );
       })}</div>}
       {!loading && events.length === 0 ? <h2>No Data</h2> : ""}
     </div>

@@ -3,10 +3,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { MyStyles } from './style';
-import { Button, FormControlLabel, FormGroup, InputLabel, MenuItem, Select, Switch } from '@mui/material';
+import { Button, FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, Select, Switch } from '@mui/material';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { display } from '@mui/system';
 const { REACT_APP_BOT_TOKEN } = process.env;
 // Post message
 // Message reaction
@@ -28,7 +29,6 @@ const Index = () => {
     let response = await axios.get("https://Slack.raju-moni.repl.co/getdatas");
     let ch = await response.data;
     setChannels((prev) => [...ch]);
-    console.log(ch);
   }
 
   useEffect(() => {
@@ -107,29 +107,32 @@ const Index = () => {
       component="form"
       noValidate
       autoComplete="off"
-    >
-      <InputLabel id="demo-simple-select-label" className={style.label}>Channel/User ID</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={channelId}
-        onChange={(e) => setChannelId(e.target.value)}
-        className={style.select}
-      >
-        {channels.map((e) => {
-          return <MenuItem value={e.id} key={ e.id}>{e.name}</MenuItem>
-        })}
-      </Select>
-      <InputLabel className={style.label}>Text Title</InputLabel>
-      <TextField
-        className={style.textField}
-        required
-        id="outlined-required"
-        placeholder="Title"
-        value={messageTitle}
-        onChange={(e) => setMessageTitle(e.target.value)}
-        fullWidth
-      />
+    ><FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Channel/User ID</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Channel/User ID"
+          value={channelId}
+          onChange={(e) => setChannelId(e.target.value)}
+        >
+          {channels.map((e, index) => {
+            return <MenuItem value={e.id} key={e.id} defaultChecked>{e.name}</MenuItem>
+          })}
+        </Select>
+      </FormControl>
+      <FormGroup className={style.formGroup}>
+        <TextField
+          className={style.textField}
+          required
+          id="outlined-required"
+          placeholder="Title"
+          label="Text Title"
+          value={messageTitle}
+          onChange={(e) => setMessageTitle(e.target.value)}
+          fullWidth
+        />
+      </FormGroup>
       <FormGroup className={style.formGroup}>
         <FormControlLabel control={<Switch value={useBlock} onChange={(e) => {
           setUseBlock(e.target.checked)
@@ -142,7 +145,7 @@ const Index = () => {
         value={blockMessage}
         onChange={(e) => setBlockMessage(e.target.value)}
         placeholder="One of these arguments is required to describe the content of the message. If attachments or blocks are included, text will be used as fallback text for notifications only."
-      />  }
+      />}
       <Button className={style.btn} onClick={() => resetHandler()} variant="contained">Reset</Button>
       <Button className={style.btn} onClick={() => submitHandle()} variant="contained">Send Message <KeyboardDoubleArrowRightIcon /></Button>
 
