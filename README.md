@@ -1,3 +1,5 @@
+# Slack Dashboard
+Allow user to post interactive message via blocks and view events, slash commands request.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
