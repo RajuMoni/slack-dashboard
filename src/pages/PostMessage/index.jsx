@@ -21,10 +21,41 @@ const Index = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [channelId, setChannelId] = useState("");
   const [messageTitle, setMessageTitle] = useState("");
-  const [blockMessage, setBlockMessage] = useState([]);
+  const [blockMessage, setBlockMessage] = useState("");
   const [channels, setChannels] = useState([]);
   const [useBlock, setUseBlock] = useState(false);
-
+  let message = [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": `${blockMessage}`
+      }
+    }, {
+      "type": "actions",
+      "elements": [
+        {
+          "type": "channels_select",
+          "placeholder": {
+            "type": "plain_text",
+            "text": "Select a channel",
+            "emoji": true
+          },
+          "action_id": "actionId-1"
+        },
+        {
+          "type": "users_select",
+          "placeholder": {
+            "type": "plain_text",
+            "text": "Select a user",
+            "emoji": true
+          },
+          "action_id": "actionId-2"
+        }
+      ]
+    }
+  ]; 
+  
   const getChannelId = async () => {
     let response = await axios.get("https://Slack.raju-moni.repl.co/getdatas");
     let ch = await response.data;
@@ -54,7 +85,7 @@ const Index = () => {
     formData.append('channel', channelId);
     formData.append('text', messageTitle);
     if (useBlock) {
-      formData.append('blocks', blockMessage);
+      formData.append('blocks', JSON.stringify(message));
     }
     if (formData) {
       axios.post('https://slack.com/api/chat.postMessage', formData,
@@ -132,20 +163,21 @@ const Index = () => {
           onChange={(e) => setMessageTitle(e.target.value)}
           fullWidth
         />
+
       </FormGroup>
       <FormGroup className={style.formGroup}>
         <FormControlLabel control={<Switch value={useBlock} onChange={(e) => {
           setUseBlock(e.target.checked)
         }} />} label="Use Block" />
       </FormGroup>
-      {useBlock && <TextareaAutosize
-        className={style.formTextArea}
-        aria-label="minimum height"
-        minRows={10}
+      {useBlock && <TextField
+        className={style.textField}
         value={blockMessage}
+        label="markdown"
         onChange={(e) => setBlockMessage(e.target.value)}
-        placeholder="One of these arguments is required to describe the content of the message. If attachments or blocks are included, text will be used as fallback text for notifications only."
+        placeholder="Section markdown"
       />}
+      <br/>
       <Button className={style.btn} onClick={() => resetHandler()} variant="contained">Reset</Button>
       <Button className={style.btn} onClick={() => submitHandle()} variant="contained">Send Message <KeyboardDoubleArrowRightIcon /></Button>
 
